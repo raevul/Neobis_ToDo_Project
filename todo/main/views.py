@@ -40,7 +40,7 @@ class TaskUpdateView(View):
         return render(request, "task_update.html", {"update_form": form})
 
 
-def task_update_status(request, task_id):
+def task_status_update(request, task_id):
     task = Task.objects.get(id=task_id)
     task.is_complete = not task.is_complete
     task.save()

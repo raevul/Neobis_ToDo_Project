@@ -22,6 +22,15 @@
                     <a href="{% url 'task_update' task_id=task.id %}"><button class="btn btn-warning">Update</button></a>
                     <a href="{% url 'task_delete' task_id=task.id %}"><button class="btn btn-danger">Delete</button></a>
                 </div>
+                  {% if task.is_complete %}
+                      <div class="alert alert-success" role="alert">
+                          <a href="{% url 'task_status_update' task_id=task.id %}">Complete</a>
+                      </div>
+                  {% else %}
+                      <div class="alert alert-warning" role="alert">
+                          <a href="{% url 'task_status_update' task_id=task.id %}">Not complete</a>
+                      </div>
+                  {% endif %}
               </div>
             </div>
         </div>
