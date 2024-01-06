@@ -9,6 +9,6 @@
     <form action="{% url 'task_create' %}" method="post">
         {% csrf_token %}
         {{ add_form.as_p }}
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-success">Create</button>
     </form>
 {% endblock %}
