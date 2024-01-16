@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Task detail {% endblock %}
+
+{% block content %}
+    <div class="card" style="margin: 50px;">
+      <div class="card-header">
+        №{{ task.id }} {{ task.title }}
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ task.description }}</p>
+        <a href="{% url 'task_update' task_id=task.id %}"><button class="btn btn-warning">Update</button></a>
+        <a href="{% url 'task_delete' task_id=task.id %}"><button class="btn btn-danger">Delete</button></a>
+      </div>
+    </div>
+{% endblock %}

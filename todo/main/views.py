@@ -7,21 +7,38 @@ from .models import Task
 
 def task_list(request):
     tasks = Task.objects.all()
-    return render(request, "task_list.html", {"tasks": tasks})
+    context = {
+        'tasks': tasks
+    }
+    return render(request, "task_list.html", context)
+
+
+def task_detail(request, task_id):
+    task = Task.objects.get(id=task_id)
+    context = {
+        'task': task
+    }
+    return render(request, "task_detail.html", context)
 
 
 class TaskCreateView(View):
 
     def get(self, request):
-        add_form = TaskCreateForm()
-        return render(request, "task_create.html", {"add_form": add_form})
+        form = TaskCreateForm()
+        context = {
+            "add_form": form
+        }
+        return render(request, "task_create.html", context)
 
     def post(self, request):
         form = TaskCreateForm(request.POST, request.FILES)
         if form.is_valid():
-            task = form.save()
+            form.save()
             return redirect("home")
-        return render(request, "task_create.html", {"add_form": form})
+        context = {
+            "add_form": form
+        }
+        return render(request, "task_create.html", context)
 
 
 class TaskUpdateView(View):
@@ -29,15 +46,21 @@ class TaskUpdateView(View):
     def get(self, request, task_id):
         task = Task.objects.get(id=task_id)
         form = TaskCreateForm(instance=task)
-        return render(request, "task_update.html", {"update_form": form})
+        context = {
+            "update_form": form
+        }
+        return render(request, "task_update.html", context)
 
     def post(self, request, task_id):
         task = Task.objects.get(id=task_id)
         form = TaskCreateForm(request.POST, instance=task)
         if form.is_valid():
-            modified_task = form.save()
+            form.save()
             return redirect("home")
-        return render(request, "task_update.html", {"update_form": form})
+        context = {
+            "update_form": form
+        }
+        return render(request, "task_update.html", context)
 
 
 def task_status_update(request, task_id):

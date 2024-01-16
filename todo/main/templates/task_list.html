@@ -6,32 +6,16 @@
 
 {% block content %}
     {% for task in tasks %}
-        <div class="card" style="margin: 50px">
-            <div class="accordion" id="accordionExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingExample">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-                      №{{ task.id }} {{ task.title }}
-                  </button>
-                </h2>
-                <div id="collapseExample" class="accordion-collapse collapse show" aria-labelledby="headingExample" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    {{ task.description }}
-                  </div>
-                    <a href="{% url 'task_update' task_id=task.id %}"><button class="btn btn-warning">Update</button></a>
-                    <a href="{% url 'task_delete' task_id=task.id %}"><button class="btn btn-danger">Delete</button></a>
-                </div>
-                  {% if task.is_complete %}
-                      <div class="alert alert-success" role="alert">
-                          <a href="{% url 'task_status_update' task_id=task.id %}">Complete</a>
-                      </div>
-                  {% else %}
-                      <div class="alert alert-warning" role="alert">
-                          <a href="{% url 'task_status_update' task_id=task.id %}">Not complete</a>
-                      </div>
-                  {% endif %}
-              </div>
+        {% if task.is_complete %}
+            <div class="alert alert-success" style="margin: 50px">
+                <a href="{% url 'task_detail' task_id=task.id %}">№{{ task.id }} {{ task.title }}</a>
+                <a style="float: right;" href="{% url 'task_status_update' task_id=task.id %}">Complete</a>
             </div>
-        </div>
+        {% else %}
+            <div class="alert alert-warning" style="margin: 50px">
+                <a href="{% url 'task_detail' task_id=task.id %}">№{{ task.id }} {{ task.title }}</a>
+                <a style="float: right;" href="{% url 'task_status_update' task_id=task.id %}">Not complete</a>
+            </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
