@@ -7,7 +7,12 @@
         №{{ task.id }} {{ task.title }}
       </div>
       <div class="card-body">
-        <p class="card-text">{{ task.description }}</p>
+        <p style="float: right;" class="card-time">{{ task.created_at }}</p>
+        {% if task.description %}
+          <p class="card-text">{{ task.description }}</p>
+        {% else %}
+          <p class="card-text">Not description</p>
+        {% endif %}
         <a href="{% url 'task_update' task_id=task.id %}"><button class="btn btn-warning">Update</button></a>
         <a href="{% url 'task_delete' task_id=task.id %}"><button class="btn btn-danger">Delete</button></a>
       </div>
